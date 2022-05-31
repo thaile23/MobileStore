@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Product</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+
+    <style>
+        .header {
+            width: 100%;
+            display: inline-table;
+            background-color: lightgrey;
+            padding: 30px 20px 40px 80px;
+        }
+
+        img {
+            width: 80%;
+        }
+
+        .col {
+            border: 1px solid #EEEEEE;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin: 20px 0 0px 10px;
+            height: 500px;
+
+        }
+        a {
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+<script th:if="${message}">
+    alert(" [[${message}]] ")
+</script>
+<div class="header">
+    <div class="d-flex justify-content-end">
+        <div th:if="${usernames}">
+            <a th:href="@{/Logout}" class="btn btn-danger"><i class="bi bi-box-arrow-in-left">Logout</i></a>
+            <div th:if="${checkAdmin}">
+                <a th:href="@{/Cart/ShowCart}" class="btn btn-light">
+                    <i class="bi bi-cart3">View cart</i></a>
+            </div>
+            <div th:unless="${checkAdmin}">
+                <a th:href="@{/Products/ShowCreate}" class="btn btn-light">
+                    <i class="bi bi-plus-circle">Add product</i></a>
+            </div>
+        </div>
+        <div th:unless="${usernames}">
+            <a th:href="@{/Login}" class="btn btn-primary">Login</a>
+        </div>
+
+    </div>
+    <div>
+        <h1>Product</h1>
+        <p>All available product in our store</p>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col" th:each="pro: ${ListProducts}">
+            <p>[[${pro.ProductName}]]</p>
+            <img th:src="@{${pro.image}}" alt="mm"/>
+            <p>[[${pro.Description}]]</p>
+            <p>[[${pro.UnitPrice}]] USD</p>
+            <p>[[${pro.unitInStock}]] units in stock</p>
+            <p></p>
+                <a th:href="@{'/Products/Detail/'+${pro.productID}}" class="btn btn-primary">
+                    <i class="bi bi-exclamation-octagon">Detail</i></a>
+                <a th:href="@{'/Product/addtocart/'+${pro.productID}}" class="btn btn-warning text-white">
+                    <i class="bi bi-cart3">Order now</i></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

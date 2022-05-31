@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Product</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css">
+    <style>
+        .container {
+            width: 40%;
+        }
+
+        .header {
+            height: 10em;
+            padding: 30px 50px 30px 30px;
+            width: 100%;
+            display:inline-table;
+            background-color: lightgrey;
+        }
+
+        a{
+            text-decoration: none;
+            color: #EEEEEE;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="btn d-flex justify-content-end">
+        <a th:href="@{/Logout}" class="btn btn-danger">Logout</a>
+       <div>
+           <a th:href="@{/}" class="btn btn-primary"><i class="bi bi-house">Home</i></a>
+       </div>
+    </div>
+        <h1>Product</h1>
+        <p>All available product in our store</p>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <h1>Add new product</h1>
+        <hr>
+        <form th:action="@{/Products/Create}" method="post" th:object="${formProduct}" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>Product Name</td>
+                    <td><input type="text" th:field="*{productName}" required autofocus/></td>
+                </tr>
+                <tr>
+                    <td>Unit Price</td>
+                    <td><input type="number" th:field="*{unitPrice}" required min="1"/></td>
+                </tr>
+                <tr>
+                    <td>Units in stock</td>
+                    <td><input type="number" th:field="*{unitInStock}" required min="0"/></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td><input type="text" th:field="*{description}" required/></td>
+                </tr>
+                <tr>
+                    <td>Manufacturer</td>
+                    <td><input type="text" th:field="*{manufacturer}" required/></td>
+                </tr>
+                <tr>
+                    <td>Category</td>
+                    <td><input type="text" th:field="*{category}" required/></td>
+                </tr>
+                <tr>
+                    <td>Condition</td>
+                    <td>
+                        <input type="radio" id="1" name="fav_language" th:field="*{condition_id}" value="1" checked>
+                        <label for="1">New</label>
+                        <input type="radio" id="2" name="fav_language" th:field="*{condition_id}" value="2">
+                        <label for="2">Old</label>
+                        <input type="radio" id="3" name="fav_language" th:field="*{condition_id}" value="3">
+                        <label for="3">Refurbished</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Product image file
+                    </td>
+                    <td>
+                        <input type="file" name="images" accept="image/png, image/jpeg"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-primary" type="submit">Add Product</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

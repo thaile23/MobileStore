@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show User</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+</head>
+<body>
+<div>
+<table  class="container text-center">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="users: ${listUsers}">
+        <td th:text="${users.userID}"></td>
+        <td th:text="${users.userName}"></td>
+        <td th:text="${users.password}"></td>
+        <td th:text="${users.userType}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

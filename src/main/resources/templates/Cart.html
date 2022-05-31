@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <style>
+        .header {
+            width: 100%;
+            display: inline-table;
+            background-color: lightgrey;
+            padding: 30px 20px 40px 80px;
+        }
+        .checkout{
+            margin-left: 78em;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="d-flex justify-content-end">
+        <div th:if="${usernames}">
+            <a th:href="@{/Logout}" class="btn btn-danger btn-sm"><i class="bi bi-box-arrow-in-left">Logout</i></a>
+        </div>
+    </div>
+    <div>
+        <h1>Cart</h1>
+        <p>All the selected products in your cart</p>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+    </div>
+    <div class="d-flex">
+        <a th:href="@{/Cart/ClearAll}" class="btn btn-danger btn-sm"><i class="bi bi-x-circle">Clear Cart</i></a>
+        <a th:href="@{/}" class="btn btn-success btn-sm checkout"><i class="bi bi-x-circle">Check out</i></a>
+    </div>
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${ListNull}">
+            <td colspan="5" class="text-center">[[${ListNull}]]</td>
+        </tr>
+        <th:block th:each="cart : ${listCart}">
+            <th:block th:each="product : ${listProduct}">
+                <tr th:if="${cart.productID == product.productID}">
+                    <td>[[${product.productName}]]</td>
+                    <td>[[${cart.quantity}]]</td>
+                    <td>[[${product.unitPrice}]]</td>
+                    <td>[[${cart.price}]]</td>
+                    <td><a th:href="@{'/Cart/delete/'+${cart.cartDetailID}}" class="btn btn-danger btn-sm"><i
+                            class="bi bi-x">Delete</i></a></td>
+                </tr>
+            </th:block>
+        </th:block>
+        <tr th:unless="${ListNull}">
+            <td></td>
+            <td></td>
+            <td>Grand total</td>
+            <td>[[${SumCart}]]</td>
+            <td></td>
+
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <a th:href="@{/}" class="btn btn-success"><i class="bi bi-arrow-left-circle">Continue shopping</i></a>
+    </div>
+</div>
+</body>
+</html>
